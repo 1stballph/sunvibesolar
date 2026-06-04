@@ -29,13 +29,12 @@
     body { background:#0F4C81; width:100vw; height:100vh; overflow:hidden;
            font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif; }
 
-    /* ── SPLASH ── */
+    /* SPLASH */
     #splash { position:fixed; inset:0;
       background:radial-gradient(ellipse at center, #ffffff 0%, #eef5fc 55%, #d8e8f6 100%);
       display:flex; flex-direction:column; align-items:center; justify-content:center;
       z-index:999; transition:opacity .6s ease; padding:24px; }
 
-    /* sun = logo core + pulsing ray dots (small -> big) */
     .sun-wrap { position:relative; width:200px; height:200px; display:flex; align-items:center; justify-content:center; }
     .ray { position:absolute; top:50%; left:50%; }
     .ray i { display:block; width:14px; height:14px; margin:-7px; border-radius:50%;
@@ -57,9 +56,7 @@
     #splash .loading-bar { height:100%; width:0%; background:linear-gradient(90deg,#FDB813,#FF8C00); border-radius:4px; animation:loadbar 4s ease-in-out forwards; }
 
     #openBtn { display:none; margin-top:24px; background:#FDB813; color:#13243a; border:none; border-radius:100px; padding:13px 26px; font-size:14px; font-weight:800; cursor:pointer; box-shadow:0 6px 18px rgba(253,184,19,0.45); text-decoration:none; }
-    #splash .hint { display:none; color:rgba(15,76,129,0.55); font-size:11px; margin-top:12px; }
-    #setupMsg { display:none; color:#0F4C81; max-width:340px; text-align:center; margin-top:22px; line-height:1.6; }
-    #setupMsg b{ color:#FF8C00 } #setupMsg code{ background:rgba(15,76,129,0.1); padding:2px 6px; border-radius:5px; font-size:11px; word-break:break-all; }
+    #splash .hint { display:none; color:rgba(15,76,129,0.55); font-size:11px; margin-top:12px; text-align:center; max-width:300px; }
 
     @keyframes loadbar { 0%{width:0%} 40%{width:60%} 80%{width:85%} 100%{width:100%} }
 
@@ -76,15 +73,6 @@
   </style>
 </head>
 <body>
-
-  <!-- ═══════════════════════════════════════════════════════════════
-       SET YOUR APP URL HERE  ▼▼▼
-       Paste SunVibe's deployed Apps Script Web App URL (must end in /exec).
-       Deploy ▸ New deployment ▸ Web app ▸ Who has access: "Anyone" ▸ copy URL.
-       ═══════════════════════════════════════════════════════════════ -->
-  <script>
-    var APP_URL = "https://script.google.com/macros/s/AKfycbz7KtOF538A2FXAhmZMqR1Ey_jWKlINQhAzvUv_AJ9qZ4lkLeEDt9nApVIFs67VEjP0/exec";
-  </script>
 
   <div id="splash">
     <div class="sun-wrap">
@@ -105,20 +93,16 @@
       <div class="core-fallback" id="core-fallback" style="display:none;"><span class="s1">Sun</span><span class="s2">V</span></div>
     </div>
     <div class="app-name"><span class="a">SunVibe</span> <span class="b">Solar</span></div>
-    <div class="app-sub">Generate · Conserve · Contribute</div>
+    <div class="app-sub">Generate &middot; Conserve &middot; Contribute</div>
     <div class="loading-bar-wrap" id="loadbarWrap"><div class="loading-bar"></div></div>
 
-    <a id="openBtn" href="#" target="_blank" rel="noopener">Open the App  &rarr;</a>
-    <div class="hint" id="openHint">Taking a while? Tap the button above.</div>
-
-    <div id="setupMsg">
-      <b>Almost there!</b><br>
-      Open <code>index.html</code> and replace the placeholder <code>APP_URL</code>
-      with your Apps Script Web App URL ending in <code>/exec</code>, then re-upload to GitHub.
-    </div>
+    <a id="openBtn" href="https://script.google.com/macros/s/AKfycbz7KtOF538A2FXAhmZMqR1Ey_jWKlINQhAzvUv_AJ9qZ4lkLeEDt9nApVIFs67VEjP0/exec" target="_blank" rel="noopener">Open the App  &rarr;</a>
+    <div class="hint" id="openHint">Taking a while? Tap the button above to open it in a new tab.</div>
   </div>
 
-  <iframe id="app-frame" allow="fullscreen; clipboard-write" allowfullscreen></iframe>
+  <iframe id="app-frame"
+          src="https://script.google.com/macros/s/AKfycbz7KtOF538A2FXAhmZMqR1Ey_jWKlINQhAzvUv_AJ9qZ4lkLeEDt9nApVIFs67VEjP0/exec"
+          allow="fullscreen; clipboard-write" allowfullscreen></iframe>
 
   <div id="installBanner">
     <img src="icon-192.png" alt="SunVibe Solar">
@@ -127,25 +111,20 @@
       <div class="ib-sub">Install SunVibe Solar for quick access</div>
     </div>
     <button class="ib-install" onclick="triggerInstall()">Install</button>
-    <button class="ib-close"   onclick="dismissInstall()">✕</button>
+    <button class="ib-close"   onclick="dismissInstall()">&#10005;</button>
   </div>
 
   <script>
-    var splash=document.getElementById('splash'), frame=document.getElementById('app-frame'),
-        openBtn=document.getElementById('openBtn'), openHint=document.getElementById('openHint'),
-        setupMsg=document.getElementById('setupMsg');
-    var notConfigured = APP_URL.indexOf('REPLACE_WITH_YOUR_WEB_APP_ID') !== -1;
+    var splash=document.getElementById('splash'),
+        frame=document.getElementById('app-frame'),
+        openBtn=document.getElementById('openBtn'),
+        openHint=document.getElementById('openHint');
+
     function hideSplash(){ splash.style.opacity='0'; setTimeout(function(){ splash.style.display='none'; },600); }
 
-    if (notConfigured) {
-      document.getElementById('loadbarWrap').style.display='none';
-      setupMsg.style.display='block';
-    } else {
-      frame.src = APP_URL; openBtn.href = APP_URL;
-      frame.onload = function(){ setTimeout(hideSplash, 800); };
-      setTimeout(hideSplash, 6000);
-      setTimeout(function(){ openBtn.style.display='inline-block'; openHint.style.display='block'; }, 4500);
-    }
+    frame.onload = function(){ setTimeout(hideSplash, 800); };
+    setTimeout(hideSplash, 6000);
+    setTimeout(function(){ openBtn.style.display='inline-block'; openHint.style.display='block'; }, 4500);
 
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', function(){ navigator.serviceWorker.register('sw.js').catch(function(e){console.warn('SW failed',e);}); });
