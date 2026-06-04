@@ -1,0 +1,16 @@
+{
+  "name": "SunVibe Solar Energy",
+  "short_name": "SunVibe Solar",
+  "description": "Hybrid grid-tied solar installation with battery backup. Generate, Conserve, Contribute.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#F8FAFC",
+  "theme_color": "#0F4C81",
+  "categories": ["business", "utilities"],
+  "icons": [
+    { "src": "icon.png", "sizes": "192x192", "type": "image/png", "purpose": "any maskable" },
+    { "src": "icon.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+  ]
+}
