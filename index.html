@@ -134,7 +134,7 @@
     var splash=document.getElementById('splash'), frame=document.getElementById('app-frame'),
         openBtn=document.getElementById('openBtn'), openHint=document.getElementById('openHint'),
         setupMsg=document.getElementById('setupMsg');
-    var notConfigured = APP_URL.indexOf('REPLACE_WITH_YOUR_WEB_APP_ID') !== -1;
+    var notConfigured = APP_URL.indexOf('https://script.google.com/macros/s/AKfycbz7KtOF538A2FXAhmZMqR1Ey_jWKlINQhAzvUv_AJ9qZ4lkLeEDt9nApVIFs67VEjP0/exec') !== -1;
     function hideSplash(){ splash.style.opacity='0'; setTimeout(function(){ splash.style.display='none'; },600); }
 
     if (notConfigured) {
